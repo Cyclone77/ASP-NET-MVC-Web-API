@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+</head>
+
+<body>
+    <div id="div_test"></div>
+    <div id="contacts"></div>
+    <script>
+        $(function() {
+            var ApiUrl = "http://cyclone77.ngrok.io/Git.Framework.WebAPI/";
+            $.ajax({
+                type: "get",
+                url: ApiUrl + "api/Contact?sex=男",
+                data: {},
+                success: function(data, status) {
+                    if (status == "success") {
+                        listContacts(data)
+                    }
+                },
+                error: function(e) {
+                    $("#div_test").html("Error");
+                },
+                complete: function() {
+
+                }
+
+            });
+        });
+
+        function listContacts(contacts) {
+            $.each(contacts, function(index, contact) {
+                var html = "<li><ul>";
+                html += "<li>Name: " + contact.Name + "</li>";
+                html += "<li>Birthday:" + contact.Birthday + "</li>";
+                html += "<li>Sex: " + contact.Sex + "</li>";
+                html += "</ul>";
+                $("#contacts").append($(html));
+            });
+        }
+    </script>
+</body>
+
+</html>
